@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus��">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="C:\Users\dlgud\AppData\Roaming\EditPlus\jquery.js"></script>
+  <script src="http://noda.me/resource/javascript/munkwa.min.js"></script>
+ </head>
+ <body>
+
+ <script>
+var 화면너비 = 1920;
+var 화면높이 = 1080;
+var 이미지 = {};
+var 나의앱 = function(){
+
+}
+ 
+ </script>
+ </body>
+</html>
