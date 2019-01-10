@@ -1,4 +1,7 @@
 
 .container{background:black; text-align: center; width:550px;}
 .container img{box-sizing:border-box; width:500px; height:500px;  border-radius: 50%; border:0 solid red;transition:border 0.5s}
-.container img:hover{border:5px solid red;  box-shadow: 0 0 50px #fff }
+.container img:hover{border:5px solid red;  box-shadow: 0 0 50px #fff }\\
+
+
+

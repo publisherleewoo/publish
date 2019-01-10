@@ -1,0 +1,4 @@
+#wrap{background:blue; padding-top:40px; bordere:10px solid red; border-radius: 10px; }
+#wrap:after{display:block; clear:both; content:''}
+#wrap > img{float:left;}
+ 
