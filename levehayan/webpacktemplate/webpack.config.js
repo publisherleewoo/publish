@@ -6,8 +6,8 @@ module.exports = {
         bar: './src/bar.js'
     },
     output: {
-        path: path.resolve(__dirname, 'js'),
-        publicPath: '/js/',  //webpack-dev-Server 설치시 작성
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist/',  //webpack-dev-Server 설치시 작성
         filename: '[name].js'
     },
     module: {
