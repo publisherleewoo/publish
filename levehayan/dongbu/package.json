@@ -1,0 +1,22 @@
+{
+    "name": "dongbu",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack --mode=development",
+        "prod": "webpack --mode=production",
+        "watch": "webpack-dev-server --mode=development --hot"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "css-loader": "^2.1.0",
+        "path": "^0.12.7",
+        "style-loader": "^0.23.1",
+        "webpack": "^4.28.4",
+        "webpack-cli": "^3.2.1",
+        "webpack-dev-server": "^3.1.14"
+    }
+}

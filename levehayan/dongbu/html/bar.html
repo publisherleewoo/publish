@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://localhost:9000/js/bar.js"></script>
+</head>
+<style>
+    body {
+        font-size: 15px;
+        padding: 50px;
+    }
+
+    .graph {
+        height: 40px;
+        background: #ccc;
+        border-radius: 40px;
+        margin-bottom: 30px;
+    }
+
+    .graph span {
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        text-align: right;
+        padding: 0 10px;
+        box-sizing: border-box;
+
+        border-radius: 40px;
+        color: white;
+    }
+
+    .graph.stack1 span {
+        animation: stack1 2s 1;
+        background: violet;
+    }
+
+    .graph.stack2 span {
+        animation: stack2 2s 1;
+        background: skyblue;
+    }
+
+    .graph.stack3 span {
+        animation: stack3 2s 1;
+        background: orange;
+    }
+
+    @keyframes stack1 {
+        0% {
+            width: 0%;
+            color: rgba(255, 255, 255, 0)
+        }
+
+        50% {
+            color: rgba(255, 255, 255, 1)
+        }
+
+        100% {
+            width: 75%;
+        }
+    }
+
+    @keyframes stack2 {
+        0% {
+            width: 0%;
+            color: rgba(255, 255, 255, 0)
+        }
+
+        50% {
+            color: rgba(255, 255, 255, 1)
+        }
+
+        100% {
+            width: 60%;
+        }
+    }
+
+    @keyframes stack3 {
+        0% {
+            width: 0%;
+            color: rgba(255, 255, 255, 0)
+        }
+
+        50% {
+            color: rgba(255, 255, 255, 1)
+        }
+
+        100% {
+            width: 25%;
+        }
+    }
+</style>
+
+
+<div class="graph stack1">
+    <span style="width: 75%;">75%</span>
+</div>
+
+<div class="graph stack2">
+    <span style="width: 60%;">60%</span>
+</div>
+
+<div class="graph stack3">
+    <span style="width: 25%;">25%</span>
+</div>
+
+
+</body>
+
+</html>
