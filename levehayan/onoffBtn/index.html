@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 50px;
+        }
+
+        a {
+            text-decoration: none
+        }
+
+        input.chk{
+            position:absolute;
+            left:-3000%;
+        }
+        
+        input.chk + label{
+            overflow:hidden;
+            position:relative;
+            display:inline-block; 
+            width:200px;
+             height:30px;
+            background: #749DFF;
+            border-radius: 30px;
+             transition:all 0.5s;
+        }
+        input.chk + label:before{
+            content:'ON';
+            position:absolute;
+            right:2px;
+            top:2px;
+            width:26px;
+            height: 26px;
+            background: #16126f;
+            border-radius: 26px;
+            line-height:26px; 
+            text-indent:-160px;
+            color:#fff;
+            transition:all 0.5s;
+        }
+        input.chk + label:after{
+            content:'OFF';
+            position:absolute;
+            right:-100px;
+            top:2px;
+            width:26px;
+            height: 26px;
+            color:#fff;
+            line-height:26px;
+            transition:all 0.5s;
+        }
+        input:checked + label{
+            background:#e44e4e;
+        }
+        input:checked + label:before{
+            right:172px;
+            background: #5f1516;  
+        }
+
+         input:checked + label:after{
+             right:10px;
+         }
+
+    </style>
+
+</head>
+
+<body>
+    <input type="checkbox" id="chk" class="chk"> <label for="chk"></label>
+</body>
+
+</html>
