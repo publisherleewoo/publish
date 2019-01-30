@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <body>
+        <div data-aaaaaaaa="이것은데이터값" data-bbbbbb="bbbbbb">
+            <h1> zzzzzz</h1>
+        </div>
+    </body>
+    <script>
+        const wrap = document.querySelector('div[data-aaaaaaaa]');
+        console.dir(wrap.dataset)
+        var dataTime = wrap.dataset.aaaaaaaa;
+        var h2 = document.createElement('h2')
+        var txt = document.createTextNode(dataTime)
+        h2.appendChild(txt)
+        wrap.appendChild(h2)
+    </script>
+</body>
+
+</html>
