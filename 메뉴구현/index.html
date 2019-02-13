@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      .menu > a {
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        border: 1px solid #ccc;
+        text-align: center;
+        text-decoration: none;
+        color: #666;
+        float: left;
+        line-height: 30px;
+        margin-left: -1px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="menu">
+      <a href="#">menu1</a> <a href="#">menu2</a> <a href="#">menu3</a>
+      <a href="#">menu4</a> <a href="#">menu5</a>
+    </div>
+
+    <div class="menu">
+      <a href="#">menu1</a> <a href="#">menu2</a> <a href="#">menu3</a>
+      <a href="#">menu4</a> <a href="#">menu5</a>
+    </div>
+    <script>
+      /**
+       * javascritp 구조 샘플
+       * */
+      // 구현함수
+      (function(global, $) {
+        global.study = {}; // 전역에서 접근이 가능하도록 전역 등록
+
+        function Menu(target, opt) {
+          // 메뉴 클래스 생성
+          console.log(target, opt);
+        }
+
+        global.study = $.extend(global.study, {
+          // study객체에 menu 메서드 확장 (jquery extend 참고)
+          menu: function(target, options) {
+            var element = null,
+              instance;
+            // 선택자의 타입을 체크
+            if (typeof target === "string") {
+              element = $(target); // target이 문자값일때 jquery객체로 생성
+            } else if (target instanceof jQuery) {
+              element = target; // target이 jquery객체일때 그대로 element에 등록
+            } else {
+              throw "잘못 입력 하셨습니다."; // 그외 다른 값이 들어올경우
+            }
+
+            element.each(function(key, value) {
+              // each문을 쓴이유는 각각의 인스턴스를 생성하여 독립적으로 기능 구현하기위해서
+              if ($(this).data("data-menu") === undefined) {
+                // data값으로 인스터스 생성 유무 체크
+                $(this).data("data-menu", "menu"); // 생성이 안되었을때 menu값 등록
+
+                instance = new Menu($(this), options); // 인스턴스 생성 $(this)는 각각의 jquery 인스턴스
+              }
+            });
+
+            return instance; // new Menu로 생성된 인스턴스를 return함으로써 외부에서 접근이 가능하다.
+          }
+        });
+      })(window, jQuery);
+
+      // 실행 함수
+      $(function() {
+        var menu = window.study.menu(".menu", {}); // param : 선택자(string), 옵션(object)
+      });
+    </script>
+  </body>
+</html>

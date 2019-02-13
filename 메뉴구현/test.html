@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8" />
+     <title>Title</title>
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+     <style>
+          * {
+               padding: 0;
+               margin: 0;
+          }
+
+          .menu>a {
+               display: inline-block;
+               width: 100px;
+               height: 30px;
+               border: 1px solid #ccc;
+               text-align: center;
+               text-decoration: none;
+               color: #666;
+               float: left;
+               line-height: 30px;
+               margin-left: -1px;
+          }
+
+          .active {
+               background: red;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="menu">
+          <a href="#">menu1</a> <a href="#">menu2</a> <a href="#">menu3</a>
+          <a href="#">menu4</a> <a href="#">menu5</a>
+     </div>
+     <div class="menu">
+          <a href="#">menu1</a> <a href="#">menu2</a> <a href="#">menu3</a>
+          <a href="#">menu4</a> <a href="#">menu5</a>
+     </div>
+
+     <div class="menu">
+          <a href="#">menu1</a> <a href="#">menu2</a> <a href="#">menu3</a>
+          <a href="#">menu4</a> <a href="#">menu5</a>
+     </div>
+     <script>
+          (function (global, $) {
+               Menu.prototype._init = function (target, opt) {
+                    this._target = target; // 타겟값 정의
+                    this._item = this._target.children(); // 각각의 메뉴 정의
+                    this._options = $.extend(true, this._options, opt); // 외부에서 받은 옵션을 확장 ex) active_class 가 기본값이 on 인데 외부에서 받아서 active로 변경
+               };
+
+               Menu.prototype._initEvent = function () {
+                    var self = this; // 이벤트 내부에서 this로 접근시 function 스코프에서 this는 호출하는 함수를 가르키므로 이벤트 외부에서 이렇게 선언을 해줘야 Menu에 접근할수가 있다
+
+                    this._item.on("mouseenter", function () {
+                         // 메뉴 아이템에 대한 각각의 이벤트
+                         if (self._overItem !== null) {
+                              // 마우스를 올려서 활성화가 된 메뉴가 있나 체크
+                              self._overItem.removeClass(self._options
+                                   .active_class); // 활성화가 되어있으면 비활성화 시킴
+                         }
+
+                         $(this).addClass(self._options.active_class); // 마우스를 오버했을경우 클래스를 추가해서 활성화
+
+                         self._overItem = $(this); // 활성화된 메뉴 아이템은 overitem 프러퍼티에 담아둔다.(중요)
+                    });
+
+                    this._target.on("mouseleave", function () {
+                         // 메뉴아이템을 감싸고있는 전체 레퍼에 관한 이벤트
+                         if (self._overItem !== null) {
+                              // 오버된 메뉴가 있나 체크
+                              self._overItem.removeClass(self._options
+                                   .active_class); // 오버된 메뉴가 있으면은 비활성화
+                         }
+                    });
+               };
+
+               function Menu(target, opt, id) {
+                    this._target = null; // 타겟(레퍼) 선언
+                    this._item = null; // 타겟의 각각의 아이템 선언
+                    this._overItem = null; // 마우스 오버했을경우 담아두는 프러퍼티
+                    this._clickItem = null; // 마우스 클릭했을경우 담아두는 퍼러퍼티
+
+                    this._options = {
+                         // 기본 옵션
+                         active_class: "on" // 활성화 될때 클래스 이름 지정
+                    };
+
+                    this._init(target, opt); // 초기화 메서드 호출(받은 인자값을 넘겨줌)
+                    this._initEvent(); // 이벤트 정의부 호출
+                    console.log(this.__proto__);
+               }
+
+               global.astudy = {};
+               global.astudy.index = 0;
+
+               global.astudy.amenu = function (target, options) {
+                    var element = null,
+                         instance = null;
+
+                    if (typeof target === "string") {
+                         element = $(target); // target이 jquery객체일때 그대로 element에 등록
+                    } else {
+                         throw "잘못 입력 하셨습니다."; // 그외 다른 값이 들어올경우
+                    }
+
+                    if (element.length === 0) {
+                         throw "없는 선택자입니다";
+                    }
+
+                    var that = this;
+                    element.each(function (index, value) {
+                         if ($(this).data("data-menu") === undefined) {
+                              $(this).data("data-menu", "menu");
+                              instance = new Menu($(this), options);
+
+                         }
+                    });
+
+                    return instance;
+               };
+          })(window, jQuery);
+
+          $(function () {
+               var menu = window.astudy.amenu(".menu", {
+                    active_class: "active"
+               }); // param : 선택자(string), 옵션(object)
+          });
+     </script>
+</body>
+
+</html>

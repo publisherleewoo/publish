@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <title>Title</title>
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+     <style>
+          * {
+               padding: 0;
+               margin: 0;
+          }
+
+          .menu>a {
+               display: inline-block;
+               width: 100px;
+               height: 30px;
+               border: 1px solid #ccc;
+               text-align: center;
+               text-decoration: none;
+               color: #666;
+               float: left;
+               line-height: 30px;
+               margin-left: -1px;
+          }
+
+          .menu>a.active {
+               background-color: cadetblue;
+               color: #fff;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="menu">
+          <a href="#">menu1</a>
+          <a href="#">menu2</a>
+          <a href="#">menu3</a>
+          <a href="#">menu4</a>
+          <a href="#">menu5</a>
+     </div>
+
+     <script>
+          /**
+           * 최초 실행되어야 메뉴 만들기
+           * */
+          (function (global, $) {
+               global.study = {}
+
+               function Menu(target, opt) {
+                    this._target = null;
+                    this._item = null;
+                    this._overItem = null;
+                    this._clickItem = null;
+                    this._options = {
+                         active_class: 'on'
+                    }
+
+                    this._init(target, opt)
+                    this._initEvent()
+               }
+
+               Menu.prototype._init = function (target, opt) {
+                    this._target = target;
+                    this._item = this._target.children();
+                    this._options = $.extend(true, this._options, opt);
+               };
+
+               Menu.prototype._initEvent = function () {
+                    var self = this;
+
+                    this._item.on('mouseenter', function () {
+                         if (self._overItem !== null) {
+                              self._removeClass(self._overItem)
+                         }
+                         if (self._clickItem !== null) {
+                              self._removeClass(self._clickItem)
+                         }
+
+                         self._addClass($(this))
+
+                         self._overItem = $(this)
+                    });
+
+                    this._target.on('mouseleave', function () {
+                         if (self._overItem !== null) {
+                              self._removeClass(self._overItem)
+                         }
+
+                         if (self._clickItem !== null) {
+                              self._addClass(self._clickItem);
+                         }
+                    });
+
+                    this._item.on('click', function () {
+                         if (self._clickItem !== null) {
+                              self._removeClass(self._clickItem);
+                         }
+
+                         self._addClass($(this))
+
+                         self._syncItem(self._overItem)
+                    })
+               };
+
+               Menu.prototype._addClass = function (item) {
+                    item.addClass(this._options.active_class)
+               };
+
+               Menu.prototype._removeClass = function (item) {
+                    item.removeClass(this._options.active_class);
+               };
+
+               // 동기화 하는 부분을 메서드(함수)로 분리
+               Menu.prototype._syncItem = function (item) {
+                    this._clickItem = item
+               };
+
+               // 외부에서 접근이 가능한 함수(그래서 이름에 _가 없다 , _함수명 은 비공개 함수)
+               Menu.prototype.activeMenu = function (index) {
+                    var target = this._item.eq(index) // 활성화 할 함수 선택
+
+
+                    this._addClass(target) // 활성화할 함수에 클래스 추가
+                    this._syncItem(target) // 동기화
+               };
+
+               global.study = $.extend(global, study, {
+                    menu: function (target, options) {
+                         var element = null,
+                              instance;
+
+                         if (typeof target === 'string') {
+                              element = $(target)
+                         } else if (target instanceof $) {
+                              element = target
+                         } else {
+                              throw "잘못 입력 하셨습니다."
+                         }
+
+                         element.each(function (key, value) {
+                              if ($(this).data('data-menu') === undefined) {
+                                   $(this).data('data-menu', 'menu');
+
+                                   instance = new Menu($(this), options);
+                              }
+                         });
+
+                         return instance
+                    }
+               })
+          })(window, jQuery)
+
+          $(function () {
+               var options = {
+                    'active_class': 'active'
+               };
+
+               var menuIns = window.study.menu('.menu', options)
+
+               // 외부에서 활성화 하고자 하는 인덱스를 인자값으로 넣어서 메뉴를 활성화 할수가 있다.
+               menuIns.activeMenu(1)
+          });
+     </script>
+</body>
+
+</html>
